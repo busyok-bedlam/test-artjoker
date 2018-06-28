@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const mongooseToCsv = require('mongoose-to-csv');
 const UsersSchema = new Schema({
     userName: {
         type: String,
@@ -19,4 +20,14 @@ const UsersSchema = new Schema({
         required: true
     }
 })
+UsersSchema.plugin(mongooseToCsv, {
+    headers: 'Firstname Lastname Username Age',
+    constraints: {
+        'Username': 'userName',
+        'Firstname': 'firstName',
+        'Lastname': 'lastName',
+        'Age': 'age'
+    }
+});
+
 module.exports = UsersSchema;
